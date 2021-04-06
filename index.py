@@ -1,83 +1,49 @@
-from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
-from chatterbot.comparisons import LevenshteinDistance
-from chatterbot.conversation import Statement
-from flask import Flask, jsonify, request
-
-# Global vars
-last_input_user = ""
-levenshtein_distance = ""
-shootWord = ""
-trainer = ""
-chatbot = ""
-learnt = False
+import socketio
+import threading
+import os
+from aiohttp import web
+from wakeonlan import send_magic_packet
 
 def init():
-  initializeIA()
-  initializeFlask()
+  initializeSocketServer()
 
-def initializeFlask():
-  app = Flask(__name__)
+def initializeSocketServer():
+  sio = socketio.AsyncServer(cors_allowed_origins="*")
+  app = web.Application()
+  sio.attach(app)
 
-  subscribeEndPoints(app)
+  @sio.event
+  async def connect(sid, environ):
+    print("connect ", sid)
+
+  @sio.event
+  async def message(sid, data):
+    global client_sio
+    client_sio.emit("action", {"action": "sleep"})
   
-  if __name__ == '__main__':
-    app.run(debug=True, port=8080)
-
-def subscribeEndPoints(app):
-  
-  @app.route('/talk-ia', methods=["POST"])
-  def talkToIa():
-    global learnt
-
-    if learnt == False:
-      response = sayToIA(request.json["message"])
-    else:
-      response = trainIA(request.json["message"])
+  @sio.event
+  async def on_devices(sid, data):
+    output = runCmd("arp -a")
+    await sio.emit("avail_devices", output)
     
-    return jsonify({
-      "message": response
-    })
+  @sio.event
+  async def on_magic_packet(sid, data):
+    return send_magic_packet(data["mac_addr"])
 
-def initializeIA():
-  global chatbot
-  global trainer
-  global levenshtein_distance
-  global shootWord
+  @sio.event
+  async def disconnect(sid):
+    print('disconnect ', sid)
 
-  chatbot = ChatBot(
-    'Vision',
-  )
+  if __name__ == '__main__':
+    web.run_app(app, host='localhost', port=8081)
 
-  trainer = ListTrainer(chatbot)
+def runCmd(cmd):
+  stream = os.popen(cmd)
+  output = stream.read()
+  return output
 
-  trainer.train([
-      'Hola',
-      'Hola, como estás hoy Fernando?',
-      'Bien'
-  ])
-
-  levenshtein_distance = LevenshteinDistance('ESP')
-  shootWord = Statement('No deberías haber dicho eso')
-  
-def sayToIA(input_user):
-  global learnt
-  global last_input_user
-
-  if levenshtein_distance.compare(Statement(input_user), shootWord) > 0.51:
-    learnt = True
-    return "¿Que debería haber dicho?"
-
-  last_input_user = input_user
-
-  return chatbot.get_response(input_user).text
-
-def trainIA(newWordToLearn):
-  global learnt
-  global last_input_user
-
-  trainer.train([last_input_user, newWordToLearn])
-  learnt = False
-  return 'Genial, gracias'
+def runInThread(cb, _args):
+  thr = threading.Thread(target=cb, args=_args)
+  thr.start()
 
 init()
