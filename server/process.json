@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "IA",
+      "script": "./index.js"
+    }
+  ],
+  "deploy": {
+    "production": {
+      "user": "Fernando",
+      "host": [
+        "0.0.0.0"
+      ]
+    }
+  }
+}
