@@ -88,25 +88,29 @@ const buildGUIDeviceSelected = () => {
   // Code your content here
 
   GUI.innerHTML = `
-    <button onclick="onSleep()">Sleep device</buton>
-    <button onclick="onShutdown()">Shutdown device</buton>
-    
-    <br>
-    <br>
-    
-    <input id="googleSearch">
-    <button onclick="onGoogleSearch()">Search on google</buton>
-    
-    <br>
-    <br>
-    
-    <input id="youtubeSearch">
-    <button onclick="onYoutubeSearch()">Search on youtube</buton>
-    
+    <p>
+      <button onclick="onSleep()">Sleep device</buton>
+    </p>
 
-    <button>TBD</buton>
-    <button>TBD</buton>
-    <button>TBD</buton>
+    <p>
+      <button onclick="onShutdown()">Shutdown device</buton>
+    </p>
+    
+    <p>
+      <input id="googleSearch">
+      <button onclick="onGoogleSearch()">Search on google</buton>
+    </p>
+    
+    <p>
+      <input id="youtubeSearch">
+      <button onclick="onYoutubeSearch()">Search on youtube</buton>
+    </p>
+    
+    <p>
+      <button>TBD</buton>
+      <button>TBD</buton>
+      <button>TBD</buton>
+    </p>
   `
 
 

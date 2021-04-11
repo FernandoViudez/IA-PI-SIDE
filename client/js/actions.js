@@ -14,7 +14,7 @@ const onGoogleSearch = () => {
   socket.emit("action",{
     action: "googleSearch",
     data: {
-      extra: document.getElementById("googleSearch")
+      extra: document.getElementById("googleSearch").value
     }
   })
 }
@@ -23,7 +23,7 @@ const onYoutubeSearch = () => {
   socket.emit("action",{
     action: "youtubeSearch",
     data: {
-      extra: document.getElementById("youtubeSearch")
+      extra: document.getElementById("youtubeSearch").value
     }
   })
 }
