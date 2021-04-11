@@ -9,7 +9,7 @@ socket.on("connect", (_client) => {
 
   _int = setInterval(() => {
     getDevices()
-  }, 10000)
+  }, 30000)
 
 })
 
@@ -31,6 +31,7 @@ const getDevices = () => {
 const chooseDevice = (ip_addr) => {
   socket.emit("device-chosen", { ip_addr })
   clearInterval(_int)
+  buildGUIDeviceSelected()
 }
 
 // If status is equal to off, then call this func
