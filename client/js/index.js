@@ -67,7 +67,7 @@ const buildGUIDevices = (devices) => {
     <td><button onclick="${
       device.status == 'on' ? 
       'chooseDevice('+ "'" + device.ip + "'" +')' : 
-      'wakeDevice('+ "'" + device.mac + "'" +'")'}">${device.status == 'on' ? 'Connect to this device' : 'Turn on by WOL'}</button></td>`
+      'wakeDevice('+ "'" + device.mac + "'" +')'}">${device.status == 'on' ? 'Connect to this device' : 'Turn on by WOL'}</button></td>`
     table.append(_tr);
   }
 
