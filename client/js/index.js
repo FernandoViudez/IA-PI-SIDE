@@ -1,4 +1,4 @@
-const socket = io("http://localhost:8080")
+const socket = io("http://192.168.0.3:8080")
 
 let _int;
 
@@ -88,33 +88,27 @@ const buildGUIDeviceSelected = () => {
   // Code your content here
 
   GUI.innerHTML = `
-    <p>
-      <button onclick="onSleep()">Sleep device</buton>
-    </p>
+  <div>
+    <button onclick="onSleep()">Sleep device</buton>
+  </div>
 
-    <p>
-      <button onclick="onShutdown()">Shutdown device</buton>
-    </p>
-    <br>
-    
-    <input id="googleSearch" placeholder="Google search">
-    <p>
+  <div>
+    <button onclick="onShutdown()">Shutdown device</buton>
+  </div>
+
+  <div>
+    <input id="googleSearch" placeholder="Google search" />
     <button onclick="onGoogleSearch()">Search on google</buton>
-    </p>
-    <br>
-    
-    <input id="youtubeSearch" placeholder="Youtube search">
-    <p>
+  </div>
+
+  <div>
+    <input id="youtubeSearch" placeholder="Youtube search" />
     <button onclick="onYoutubeSearch()">Search on youtube</buton>
-    </p>
-    <br>
-    
-    <p>
+  </div>
+
+  <div>
     <button onclick="onMinimizeAllWindows()">Minimize all windows</buton>
-    </p>
-    `
+  </div>`
 
-
-  GUI.append(table);
   document.body.append(GUI);
 }
