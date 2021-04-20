@@ -1,6 +1,8 @@
 const { Cmd } = require("../controllers/cmd/cmd");
 const path = require("path");
-const replace = require('replace-in-file')
+const fs = require("fs");
+const replace = require('replace-in-file');
+const { Logger } = require("./logger");
 
 const Build = {}
 
@@ -25,12 +27,14 @@ Build.getHost = () => {
     await Build.replaceInFile("0.0.0.0", ipv4, "./process.json");
     
     //Build path
-    const pathToRoot = path.join(__dirname, '../')
-    Cmd.execute(`cd "${pathToRoot}" & pm2 start process.json`)
-    .then(res => {
+    const pathToRoot = path.join(__dirname, '../../')
+    fs.writeFile(pathToRoot + "server.cmd", `cd "${pathToRoot}server" & pm2 start process.json & cd .. & cd client & http-server`, err => {
+      if (err) {
+        Logger.error(err)
+        return
+      }
       process.exit(0)
     })
-    
   })
 }
 

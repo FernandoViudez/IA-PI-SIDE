@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "IA",
+      "name": "PI",
       "script": "./index.js"
     }
   ],

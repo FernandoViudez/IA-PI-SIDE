@@ -7,8 +7,10 @@ npm run start:dev
 npm run start:prod
 
 # To install the program and start using it
-you must click on "IA.cmd" file inside root folder.
+npm run build
 
-#IMPORTANT
+- Next, you will se server.cmd file.
+- Execute windows + r and type "shell:startup".
+- Then drop this file inside this folder.
 
-# Remeber to modify IA.cmd with the name of your app specified on "process.json" file
+- Congrats! you have the app running on your server!
