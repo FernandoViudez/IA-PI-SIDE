@@ -95,23 +95,24 @@ const buildGUIDeviceSelected = () => {
     <p>
       <button onclick="onShutdown()">Shutdown device</buton>
     </p>
+    <br>
+    
+    <input id="googleSearch" placeholder="Google search">
+    <p>
+    <button onclick="onGoogleSearch()">Search on google</buton>
+    </p>
+    <br>
+    
+    <input id="youtubeSearch" placeholder="Youtube search">
+    <p>
+    <button onclick="onYoutubeSearch()">Search on youtube</buton>
+    </p>
+    <br>
     
     <p>
-      <input id="googleSearch">
-      <button onclick="onGoogleSearch()">Search on google</buton>
+    <button onclick="onMinimizeAllWindows()">Minimize all windows</buton>
     </p>
-    
-    <p>
-      <input id="youtubeSearch">
-      <button onclick="onYoutubeSearch()">Search on youtube</buton>
-    </p>
-    
-    <p>
-      <button>TBD</buton>
-      <button>TBD</buton>
-      <button>TBD</buton>
-    </p>
-  `
+    `
 
 
   GUI.append(table);

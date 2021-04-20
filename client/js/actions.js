@@ -27,3 +27,9 @@ const onYoutubeSearch = () => {
     }
   })
 }
+
+const onMinimizeAllWindows = () => {
+  socket.emit("action",{
+    action: "minimize-windows",
+  })
+}
